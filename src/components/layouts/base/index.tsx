@@ -1,9 +1,14 @@
 import * as React from "react"
-import { Link as GatsbyLink, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { extendTheme } from "@chakra-ui/react"
-import { ChakraProvider, Box, Link as ChakraLink, Flex, Text} from "@chakra-ui/react"
-import { UnstyledListing } from "../../unstyled-listing"
-import { NavItem } from "../../nav-item"
+import {
+  ChakraProvider,
+  Box,
+  Link as ChakraLink,
+  Flex,
+  Text,
+} from "@chakra-ui/react"
+import { Navbar } from "../../navbar"
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const themeConfig = {
@@ -18,11 +23,19 @@ const themeConfig = {
     initialColorMode: "dark",
     useSystemColorMode: false,
   },
+  styles: {
+    global: _props => ({
+      body: {
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+      },
+    }),
+  },
 }
 
 const theme = extendTheme({ ...themeConfig })
 
-const BaseLayout = ({ pageTitle, children }) => {
+const BaseLayout = ({ pageTitle, children }): JSX.Element => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -35,26 +48,23 @@ const BaseLayout = ({ pageTitle, children }) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box paddingX={{ base: 0, md: 20}} paddingTop={19}>
+      <Box paddingX={{ base: 0, md: 20 }} paddingTop={19}>
         <title>
           {pageTitle} | {data.site.siteMetadata.title}
         </title>
         <Flex as="header" justifyContent="space-between">
-          <Text padding={4} fontSize="2xl"> {data.site.siteMetadata.title}</Text>
+          <Text padding={4} fontSize="2xl">
+            {" "}
+            {data.site.siteMetadata.title}
+          </Text>
 
           {/* NAVBAR */}
-          <Box as="nav">
-            <Flex as="ul" justifyContent="flex-end">
-              <NavItem to="/" text="Home" />
-              <NavItem to="/about" text="About" />
-              <NavItem to="/blog" text="Blog" />
-            </Flex>
-          </Box>
+          <Navbar />
         </Flex>
         {/* MAIN CONTENT */}
         <Flex as="main" flexDirection="column" alignItems="center">
-          <Text fontSize="3xl">{pageTitle}</Text>
-          {children}
+          <Text fontSize="6xl" marginBottom={19} paddingBottom={19}>{pageTitle}</Text>
+          <Flex width={{ base: "90%", md: "70%", lg: "50%", xl: "40%" }}>{children}</Flex>
         </Flex>
       </Box>
     </ChakraProvider>
