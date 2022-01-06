@@ -53,7 +53,7 @@ function NavItem(props: NavItemProps) {
 
   return (
     <UnstyledListing>
-      <Box marginRight={18} marginTop={2}>
+      <Box marginRight={18} marginTop={1}>
 
 				{/* @ts-ignore */}
         <GatsbyLink style={linkStyle} to={props.to} activeStyle={activeLinkStyle}>

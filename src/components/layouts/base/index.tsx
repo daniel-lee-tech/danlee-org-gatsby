@@ -35,13 +35,14 @@ const BaseLayout = ({ pageTitle, children }) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box>
+      <Box paddingX={{ base: 0, md: 20}} paddingTop={19}>
         <title>
           {pageTitle} | {data.site.siteMetadata.title}
         </title>
         <Flex as="header" justifyContent="space-between">
           <Text padding={4} fontSize="2xl"> {data.site.siteMetadata.title}</Text>
 
+          {/* NAVBAR */}
           <Box as="nav">
             <Flex as="ul" justifyContent="flex-end">
               <NavItem to="/" text="Home" />
@@ -50,10 +51,11 @@ const BaseLayout = ({ pageTitle, children }) => {
             </Flex>
           </Box>
         </Flex>
-        <main>
-          <h1>{pageTitle}</h1>
+        {/* MAIN CONTENT */}
+        <Flex as="main" flexDirection="column" alignItems="center">
+          <Text fontSize="3xl">{pageTitle}</Text>
           {children}
-        </main>
+        </Flex>
       </Box>
     </ChakraProvider>
   )
